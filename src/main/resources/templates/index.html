@@ -4,17 +4,78 @@
     <meta charset="UTF-8">
     <title>Light On Off Watcher</title>
     <link href="/dist/output.css" rel="stylesheet">
+    <style>
+        .locationButton {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .locationButton::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #3B82F6;
+            transition: width 0.5s ease, left 0.5s ease;
+        }
+
+        .locationButton:hover::before {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Ensure that header takes up full height and centers content */
+        .flex-container {
+            display: flex;
+            justify-content: center;
+            height: 100vh;  /* Take full viewport height */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Ensure input fields have enough space to grow */
+        .input-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <div class="text-md text-center text-gray-800">
-            <button>Acknowledge With Location</button>
-            <button>Acknowledge With Group</button>
+<body class="bg-gray-100">
+<header class="p-4 ">
+    <div class="button-container">
+        <!-- Button 1 -->
+        <form th:action="@{/changeValue}" method="post" id="locationForm">
+            <button type="submit" class="locationButton py-2 px-4 rounded-t-lg border-2 border-transparent focus:outline-none transition-all duration-500 toggle-button relative">
+                Acknowledge With Location
+            </button>
+        </form>
+
+        <!-- Button 2 -->
+        <form th:action="@{/changeValue}" method="post" id="groupForm">
+            <button type="submit" class="locationButton py-2 px-4 rounded-t-lg border-2 border-transparent focus:outline-none transition-all duration-500 toggle-button relative">
+                Acknowledge With Group
+            </button>
+        </form>
+    </div>
+
+    <div class="mt-4 input-container">
+        <div th:if="${!group}" class="w-full max-w-[300px]">
+            <label for="userInput1" class="block mt-2">Enter Your Location</label>
+            <input type="text" id="userInput1" class="p-2 rounded-lg border-2 border-gray-300 w-full" placeholder="Enter Your Location">
         </div>
-        <div class="mt-4 px-4 py-2 bg-green-500 hover:bg-green-700 text-white rounded">
-            <input type="text" id="userInput">
-            <label>Enter Your Location </label>
+        <div th:if="${group}" class="w-full max-w-[300px]">
+            <label for="userInput2" class="block mt-2">Enter Your Group</label>
+            <input type="text" id="userInput2" class="p-2 rounded-lg border-2 border-gray-300 w-full" placeholder="Enter Your Group">
         </div>
-    </header>
+    </div>
+</header>
 </body>
 </html>
