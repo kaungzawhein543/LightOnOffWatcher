@@ -67,7 +67,7 @@
             align-items: center;
             gap: 20px;
             width: 100%;
-            max-width: 500px;
+            max-width: 800px;
         }
 
         input[type="text"] {
@@ -94,6 +94,7 @@
         label {
             font-weight: bold;
             font-size: 16px;
+            width: 100%;
             margin-bottom: 10px;
         }
 
@@ -120,12 +121,101 @@
             transform: scale(1.02);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
-           h1 {
+            h1 {
             font-size: 32px;
             font-weight: bold;
             margin-bottom: 30px;
             color: #fff;
             text-transform: uppercase;
+        }
+        .container {
+            display: flex;
+            gap: 100px;
+            color: #333;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .box {
+            width: 250px;
+            display: flex;
+            align-items: center;
+            height: 250px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .icon {
+            width: 60px;
+            height: 60px;
+            background-color: #81C784; /* Softer green background for clock */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: white;
+            margin-right: 10px; /* Space between icon and time */
+        }
+
+        .icon.green {
+            background-color: #9ff9a3; /* Softer green */
+        }
+
+        .icon.blue {
+            background-color: #98d1ff; /* Softer blue */
+        }
+
+        .icon.purple {
+            background-color: #ef97ff; /* Softer purple */
+        }
+
+        /* Time Display Styling */
+        .time-display {
+            font-size: 30px;
+            font-weight: bold;
+            color: #311597;
+            padding: 8px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .time-display:hover {
+            background-color: #7241f7;
+            color: white;
+        }
+
+        /* Optional: Adding a slight border around the box to make it look more structured */
+        .box {
+            position: relative;
+            overflow: hidden;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 25px;
+            color: #fff;
+            background: linear-gradient(135deg, #3b82f6, #9333ea);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
@@ -152,12 +242,42 @@
 
     <div class="input-container">
         <div th:if="${!group}">
-            <label for="userInput1">🌅 Enter Your Day</label>
-            <input type="text" id="userInput1" placeholder="Enter Your Day">
+            <label for="userInput1">⛺ Enter Your Location</label>
+            <input type="text" id="userInput1" placeholder="Enter Your Location">
         </div>
-        <div th:if="${group}">
+        <div th:if="${group}" style="display: flex;justify-content: space-between; align-items: center;">
             <label for="userInput2">🎯 Enter Your Group</label>
-            <input type="text" id="userInput2" placeholder="Enter Your Group">
+            <input type="text" id="userInput2" class="width:50%" placeholder="Enter Your Group">
+
+            <label for="userInput3">🎯 Enter Your Day</label>
+            <input type="text" id="userInput3" class="width:50%"  placeholder="Enter Your Day">
+        </div>
+    </div>
+    <div class="container">
+        <div class="box">
+            <div class="icon-container">
+                <div class="icon green">
+                    &#128340;
+                </div>
+                <div class="time-display">23:02</div> <!-- Time beside the icon -->
+            </div>
+        </div>
+        <div class="box">
+            <div class="icon-container">
+                <div class="icon blue">
+                    &#128340;
+                </div>
+                <div class="time-display">23:02</div> <!-- Time beside the icon -->
+            </div>
+        </div>
+        <div class="box">
+            <div class="icon-container">
+                <div class="icon purple">
+                    &#128340;
+                </div>
+                <div class="time-display">23:02</div> <!-- Time beside the icon -->
+            </div>
+
         </div>
     </div>
 </header>
