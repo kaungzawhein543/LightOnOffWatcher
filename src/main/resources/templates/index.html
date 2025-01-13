@@ -32,33 +32,7 @@
             color: #fff;
         }
 
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
 
-        /* Buttons */
-        .locationButton {
-            position: relative;
-            overflow: hidden;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 12px 25px;
-            color: #fff;
-            background: linear-gradient(135deg, #3b82f6, #9333ea);
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .locationButton:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
 
         /* Inputs */
         .input-container {
@@ -72,7 +46,8 @@
 
         input[type="text"] {
             width: 100%;
-            padding: 14px 20px;
+            padding: 10px 16px;
+            margin:10px;
             border: 2px solid #cbd5e1; /* Light gray border */
             border-radius: 12px;
             font-size: 16px;
@@ -162,14 +137,13 @@
         }
 
         .icon {
-            width: 60px;
-            height: 60px;
+            width: 30px;
+            height: 30px;
             background-color: #81C784; /* Softer green background for clock */
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 30px;
             color: white;
             margin-right: 10px; /* Space between icon and time */
         }
@@ -188,11 +162,11 @@
 
         /* Time Display Styling */
         .time-display {
-            font-size: 30px;
+            font-size: 20px;
             font-weight: bold;
             color: #311597;
-            padding: 8px 15px;
             border-radius: 8px;
+            padding:10px;
             display: inline-block;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
@@ -208,7 +182,7 @@
             overflow: hidden;
             font-size: 18px;
             font-weight: bold;
-            padding: 12px 25px;
+            padding: 10px 20px;
             color: #fff;
             background: linear-gradient(135deg, #3b82f6, #9333ea);
             border: none;
@@ -217,6 +191,41 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+        .button-63 {
+              align-items: center;
+              background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+              border: 1px solid #3e31f5;
+              border-radius: 8px;
+              box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+              box-sizing: border-box;
+              color: #FFFFFF;
+              display: flex;
+              font-family: Phantomsans, sans-serif;
+              font-size: 10px;
+              justify-content: center;
+              line-height: 1em;
+              max-width: 60%;
+              min-width: 100px;
+              padding: 10px 14px;
+              text-decoration: none;
+              user-select: none;
+              -webkit-user-select: none;
+              touch-action: manipulation;
+              white-space: nowrap;
+              cursor: pointer;
+            }
+
+            .button-63:active,
+            .button-63:hover {
+              outline: 0;
+            }
+
+            @media (min-width: 768px) {
+              .button-63 {
+                font-size: 17px;
+                min-width: 106px;
+              }
+            }
     </style>
 </head>
 <body>
@@ -224,61 +233,44 @@
 
     <h1>Yangon Power Tracker</h1>
 
-    <div class="button-container">
-        <!-- Button 1 -->
-        <form th:action="@{/changeValue}" method="post" id="locationForm">
-            <button type="submit" class="locationButton">
-                🌍 Acknowledge Day
-            </button>
-        </form>
-
-        <!-- Button 2 -->
-        <form th:action="@{/changeValue}" method="post" id="groupForm">
-            <button type="submit" class="locationButton">
-                👥 Acknowledge Group
-            </button>
-        </form>
-    </div>
 
     <div class="input-container">
-        <div th:if="${!group}">
-            <label for="userInput1">⛺ Enter Your Location</label>
-            <input type="text" id="userInput1" placeholder="Enter Your Location">
-        </div>
-        <div th:if="${group}" style="display: flex;justify-content: space-between; align-items: center;">
-            <label for="userInput2">🎯 Enter Your Group</label>
-            <input type="text" id="userInput2" class="width:50%" placeholder="Enter Your Group">
+        <form th:object="${inputData}" style="display: flex;justify-content: center; align-items: center;" method="post" th:action="@{/getTime}">
+            <input type="text" id="userInput2" class="width:50%" style="color:black;" th:field="*{day}" placeholder="Enter Your Day (only number)" maxlength="2" pattern="[0-9]+">
 
-            <label for="userInput3">🎯 Enter Your Day</label>
-            <input type="text" id="userInput3" class="width:50%"  placeholder="Enter Your Day">
-        </div>
-    </div>
-    <div class="container">
-        <div class="box">
-            <div class="icon-container">
-                <div class="icon green">
-                    &#128340;
-                </div>
-                <div class="time-display">23:02</div> <!-- Time beside the icon -->
+            <input type="text" id="userInput3" style="width:18%;color:black;" maxlength="1" th:field="*{group}" placeholder="Group">
+
+            <div style="margin-left:20px;">
+                <button class="button-63" role="button">Search</button>
             </div>
-        </div>
-        <div class="box">
+        </form>
+    </div>
+
+    <div th:if="${times != null}" class="container">
+        <div class="box" th:each="time , status : ${times}">
             <div class="icon-container">
                 <div class="icon blue">
                     &#128340;
                 </div>
-                <div class="time-display">23:02</div> <!-- Time beside the icon -->
+                <div class="time-display" th:text="${time}"></div> <!-- Time beside the icon -->
             </div>
         </div>
-        <div class="box">
-            <div class="icon-container">
-                <div class="icon purple">
-                    &#128340;
-                </div>
-                <div class="time-display">23:02</div> <!-- Time beside the icon -->
-            </div>
-
-        </div>
+<!--        <div class="box">-->
+<!--            <div class="icon-container">-->
+<!--                <div class="icon blue">-->
+<!--                    &#128340;-->
+<!--                </div>-->
+<!--                <div class="time-display">23:02</div> &lt;!&ndash; Time beside the icon &ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="box">-->
+<!--            <div class="icon-container">-->
+<!--                <div class="icon purple">-->
+<!--                    &#128340;-->
+<!--                </div>-->
+<!--                <div class="time-display">23:02</div> &lt;!&ndash; Time beside the icon &ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </header>
 </body>
