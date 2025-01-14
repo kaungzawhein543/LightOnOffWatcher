@@ -33,7 +33,6 @@ public class index {
         System.out.println(inputData);
         CalculateTime calculateTime = new CalculateTime();
         String[] timeArray =  calculateTime.calculate(Integer.parseInt(inputData.getDay()), inputData.getGroup());
-        System.out.println(Arrays.toString(timeArray));
         redirectAttributes.addFlashAttribute("times", timeArray);
         return "redirect:/";
     }

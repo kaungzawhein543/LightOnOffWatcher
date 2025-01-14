@@ -1,7 +1,7 @@
 package com.epc.LightOnOffWatcher;
 
 
-import org.thymeleaf.expression.Arrays;
+import java.util.Arrays;
 
 public class CalculateTime {
     private static final int start_date = 5;
@@ -29,18 +29,13 @@ public class CalculateTime {
             if(start_index_For_Loop == 3) {
                 start_index_For_Loop = 0;
             }
-            for(;start_index2 <= 5; start_index2++) {
-                if(groupSequence[start_index_For_Loop][start_index2].equals(group) ||
-                        groupSequence[start_index_For_Loop][start_index2].contains(group)) {
-                    if(startDate == day) {
-                        return  getTimesFromArray(start_index_For_Loop,group);
-                    }
-                }
+            if(startDate == day ) {
+                String arrayString = Arrays.toString(groupSequence[start_index_For_Loop]);
+                return  getTimesFromArray(start_index_For_Loop,group);
             }
             startDate++;
             start_index++;
             start_index_For_Loop++;
-            start_index2= 0;
         }while(day >= startDate);
         return null;
     }
