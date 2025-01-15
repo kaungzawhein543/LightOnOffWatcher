@@ -30,9 +30,10 @@ public class index {
 
     @PostMapping(value="/getTime")
     public String getTime(@ModelAttribute GroupAndDate inputData, RedirectAttributes redirectAttributes){
+        System.out.println(inputData);
         CalculateTime calculateTime = new CalculateTime();
-        String[] timeArray =  calculateTime.calculate(Integer.parseInt(inputData.getDay()), inputData.getGroup());
-        redirectAttributes.addFlashAttribute("times", timeArray);
+//        String[] timeArray =  calculateTime.calculate(Integer.parseInt(inputData.getDay()), inputData.getGroup());
+//        redirectAttributes.addFlashAttribute("times", timeArray);
         return "redirect:/";
     }
 

@@ -226,6 +226,21 @@
                 min-width: 106px;
               }
             }
+          input[type="date"] {
+              width: 100%;
+              padding: 10px;
+
+              font-size: 1rem;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              outline: none;
+              transition: border-color 0.3s;
+            }
+
+            input[type="date"]:focus {
+              border-color: #007BFF;
+            }
+
     </style>
 </head>
 <body>
@@ -236,9 +251,9 @@
 
     <div class="input-container">
         <form th:object="${inputData}" style="display: flex;justify-content: center; align-items: center;" method="post" th:action="@{/getTime}">
-            <input type="text" id="userInput2" class="width:50%" style="color:black;" th:field="*{day}" placeholder="Enter Your Day (only number)" maxlength="2" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if (this.value > 31) this.value = 31;" >
-
-            <input type="text" id="userInput3" style="width:18%;color:black;" maxlength="1" th:field="*{group}" placeholder="Group" autocomplete="off">
+<!--          <input type="text" id="userInput2" class="width:50%" style="color:black;" th:field="*{day}" placeholder="Enter Your Day (only number)" maxlength="2" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if (this.value > 31) this.value = 31;" >-->
+            <input type="date" id="userInput2" class="width:50%" style="color:black;" th:field="*{day}"  min="2025-01-01" max="2025-01-31">
+            <input type="text" id="userInput3" style="width:22%;color:black;" maxlength="1" th:field="*{group}" placeholder="Group" autocomplete="off">
 
             <div style="margin-left:20px;">
                 <button class="button-63" role="button">Search</button>
