@@ -1,6 +1,8 @@
 package com.epc.LightOnOffWatcher;
 
 
+import com.epc.LightOnOffWatcher.bean.GroupAndDate;
+
 import java.util.Arrays;
 
 public class CalculateTime {
@@ -20,23 +22,34 @@ public class CalculateTime {
     };
 
 
-    public  String[] calculate(int day,String group) {
+    public  String[] calculate(String day,String group) {
+
         int start_index_For_Loop = 0;
+
         int start_index = 0;
+
         int start_index2 = 0;
+
         int startDate = 5;
+
+        int dayAsInt = 0;
+
+        String dayFromDate = this.splitDayFromDate(day);
+
+        dayAsInt =  Integer.parseInt(dayFromDate);
+
         do{
             if(start_index_For_Loop == 3) {
                 start_index_For_Loop = 0;
             }
-            if(startDate == day ) {
+            if(startDate == dayAsInt ) {
                 String arrayString = Arrays.toString(groupSequence[start_index_For_Loop]);
                 return  getTimesFromArray(start_index_For_Loop,group);
             }
             startDate++;
             start_index++;
             start_index_For_Loop++;
-        }while(day >= startDate);
+        }while(dayAsInt >= startDate);
         return null;
     }
 
@@ -58,5 +71,10 @@ public class CalculateTime {
             }
         }
         return fixArray;
+    }
+
+    private String splitDayFromDate(String date) {
+        String[] splitDate = date.split("-");
+        return splitDate[splitDate.length-1];
     }
 }
